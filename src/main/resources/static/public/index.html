@@ -78,7 +78,7 @@
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" aria-current="page" href="#">CRIAR POST</a>
+          <a class="nav-link active" data-bs-toggle="modal" data-bs-target="#modal-post" data-bs-whatever="@getbootstrap" aria-current="page" href="#">CRIAR POST</a>
         </li>
 <!--         
         <li class="nav-item">
@@ -175,7 +175,7 @@
   </div> -->
 
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="modal-post" tabindex="-1" aria-labelledby="modalPostLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -185,15 +185,15 @@
         <div class="modal-body">
             <div class="mb-3">
               <label for="recipient-name" class="col-form-label">Título</label>
-              <input type="text" class="form-control" id="recipient-name">
+              <input type="text" class="form-control" id="title">
             </div>
             <div class="mb-3">
               <label for="message-text" class="col-form-label">Mensagem:</label>
-              <textarea class="form-control" id="message-text"></textarea>
+              <textarea class="form-control" id="message"></textarea>
             </div>
             <div class="mb-3">
               <label for="message-text" class="col-form-label">Autor:</label>
-              <input type="text" class="form-control" id="author-text"/>
+              <input type="text" class="form-control" id="author"/>
             </div>
         </div>
         <div class="modal-footer">

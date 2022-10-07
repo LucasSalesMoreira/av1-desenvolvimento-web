@@ -3,27 +3,31 @@ $(document).ready(() => {
         successCallback = (response) => console.log(response), 
         url = null, 
         method = 'GET', 
-        data = {}
+        data = null
     ) => {
         let baseUrl = 'http://localhost:8080/api/post'
         url = url ? `${baseUrl}/${url}` : baseUrl 
         
         $.ajax({
             url,
+            dataType: 'json',
+            headers: {"Content-Type": "application/json"},
             method,
-            data,
+            data: data ? JSON.stringify(data) : data, 
             success: successCallback,
             error: (e) => console.log(`Algo deu errado: ${e}`)
         })
     }
 
     const makePostsList = ({ posts }) => {
+        $('#posts').html('') // Limpa posts da tela.
+
         if (posts.length === 0) {
             $('#posts').append($('<h3>Sem posts no momento!</h3>'))
             return
         }
-        
-        $('#posts').html('') // Limpa posts da tela.
+
+        posts.reverse()
 
         posts.forEach((item) => {
             let html = `<div class="d-flex text-muted pt-3">
@@ -31,7 +35,7 @@ $(document).ready(() => {
                             <!--<img class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" src="./assets/brand/user.png">-->
                             <p class="pb-3 mb-0 small lh-sm border-bottom">
                                 <strong class="d-block text-gray-dark">@${item.author}</strong>
-                                Some representative placeholder content, with some information about this user. Imagine this being some sort of status update, perhaps?
+                                ${item.body}
                             </p>
                         </div>`
             
@@ -39,19 +43,26 @@ $(document).ready(() => {
         })
     }
 
+    const reload = () => sendRequest(makePostsList)
 
-    sendRequest(makePostsList)
+    const successCreatedNewPost = (post) => {
+        console.log(`Novo post criado ID = ${post.id}`)
+        reload()
+        $('#modal-post').modal('hide')
+    }
 
     $('#reload').click(() => {
-        sendRequest(makePostsList)
+        reload()
     })
 
     $('#send-button').click(() => {
         let payload = {
-            title: null,
-            body: null,
-            author: null 
+            title: $('#title').val(),
+            body: $('#message').val(),
+            author: $('#author').val()
         }
-        sendRequest(makePostsList, null, 'POST', payload)
+        sendRequest(successCreatedNewPost, null, 'POST', payload)
     })
+
+    reload()
 })
